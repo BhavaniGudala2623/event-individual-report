@@ -1,141 +1,233 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Grid, CssBaseline, AppBar, Toolbar, Typography, Box, TextField } from '@mui/material';
+import { Button, Grid, Typography, Box, TextField, AppBar, Toolbar, CssBaseline, Card } from '@mui/material';
+import { dtr, Feeder, Section, SubStation } from './Dropdown';
 import Home from '@mui/icons-material/Home';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Section } from './Dropdown';
 
 export default function EventIndividualReport() {
-    const [currency, setCurrency] = useState('');
-
-    const handleChange = (event) => {
-        setCurrency(event.target.value);
+    const initialValues = {
+        sections: "",
+        substation: "",
+        feeder: "",
+        dtr: "",
+        meter: "",
+        fromdate: "",
+        todate: ""
     };
 
+    const [values, setValues] = useState(initialValues);
+    const handleInputChange = e => {
+        const { name, value } = e.target
+        setValues({
+            ...values, [name]: value
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("InputFields", values);
+        setValues({
+            sections: "",
+            substation: "",
+            feeder: "",
+            dtr: "",
+            meter: "",
+            fromdate: "",
+            todate: ""
+        })
+
+    }
     return (
         <>
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 2, width: '25ch' },
+                    '& .MuiTextField-root': { m: 2, width: '25ch' }
                 }}
                 noValidate
                 autoComplete="off"
             >
                 <CssBaseline />
                 <AppBar position="relative">
-                    <Toolbar >
-                        <Box sx={{ width: '100%', maxWidth: 300 }}>
-
-                            <Typography variant='h6' gutterBottom component="div"><Home color="black" /><KeyboardArrowRightIcon />Reports</Typography>
-                            <Typography variant="h6" gutterBottom component="div">Event Individual Report</Typography>
+                    <Toolbar>
+                        <Box sx={{ width: '100%', maxWidth: 500 }}>
+                            <Typography variant="h6" gutterBottom component="div">
+                                <Home color="black" />
+                                <KeyboardArrowRightIcon />Reports
+                            </Typography>
+                            <Typography variant="h6" gutterBottom component="div">
+                                Event Individual Report
+                            </Typography>
                         </Box>
                     </Toolbar>
                 </AppBar>
 
-                <Box sx={{ display: 'flex', p: 1, m: 1, bgcolor: 'background.paper', flexDirection: 'row', }}>
-                </Box>
-                <Grid container direction="row" justifyContent="center" alignContent="center" >
-                    <TextField
-                        id="outlined-select-currency-native"
-                        select
-                        required label="Sections:"
-                        value={currency}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                    >
-                        {Section.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </TextField>
 
-                    <TextField
-                        id="outlined-select-currency-native"
-                        select
-                        required label="Sub Station:"
-                        value={currency}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                    >
-                    </TextField>
+                <form action="" onSubmit={handleSubmit}>
+                    <Card elevation={4}>
+                        <Grid container direction="row" justifyContent="center" alignContent="center" paddingTop={5} >
+                            <TextField
+                                name='sections'
+                                select
+                                required label="Sections:"
+                                value={values.sections}
+                                onChange={handleInputChange}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                            >
+                                {Section.map((option) => (
+                                    <option key={option.label} value={option.label}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </TextField>
 
-                    <TextField
-                        id="outlined-select-currency-native"
-                        select
-                        required label="Feeder:"
-                        value={currency}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                    >
-                    </TextField>
-                    <TextField
-                        id="outlined-select-currency-native"
-                        select
-                        required label="DTR:"
-                        value={currency}
-                        onChange={handleChange}
-                        SelectProps={{
-                            native: true,
-                        }}
-                    >
-                    </TextField>
+                            <TextField
+                                name='substation'
+                                id="outlined-select-currency-native"
+                                select
+                                required label="Sub Station:"
+                                value={values.substation}
+                                onChange={handleInputChange}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                            >
+                                {SubStation.map((option) => (
+                                    <option key={option.label} value={option.label}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </TextField>
 
-                    <TextField id="outlined-basic" label="METER" variant="outlined" />
-                </Grid>
+                            <TextField
+                                name='feeder'
+                                id="outlined-select-currency-native"
+                                select
+                                required label="Feeder:"
+                                value={values.feeder}
+                                onChange={handleInputChange}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                            >
+                                {Feeder.map((option) => (
+                                    <option key={option.label} value={option.label}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </TextField>
+                            <TextField
+                                name='dtr'
+                                id="outlined-select-currency-native"
+                                select
+                                required label="DTR:"
+                                value={values.dtr}
+                                onChange={handleInputChange}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                            >
+                                {dtr.map((option) => (
+                                    <option key={option.label} value={option.label}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </TextField>
+
+                            <TextField
+                                name='meter'
+                                id="outlined-basic"
+                                label="METER"
+                                variant="outlined"
+                                value={values.meter}
+                                onChange={handleInputChange}
+                            >
+                                {SubStation.map((option) => (
+                                    <option key={option.label} value={option.label}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </TextField>
+                        </Grid>
 
 
 
-                <Grid container direction="row" justifyContent="center" alignContent="center" >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                        <Typography variant="h6" display="inline">
-                            If you already know the meter number, please enter here :</Typography>
-                        <TextField />
-                    </div>
-                </Grid>
+                        <Grid container direction="row" justifyContent="center" alignContent="center" >
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <Typography variant="h6" display="inline">
+                                    If you already know the meter number, please enter here :</Typography>
+                                <TextField />
+                            </div>
+                        </Grid>
+
+                        <Grid container direction="row" justifyContent="center" alignContent="cen   ter" >
+                            <div component="form" noValidate spacing={3}>
+                                <Typography variant="h7" display="inline">
+                                    From : </Typography>
+
+                                <TextField
+                                    name='fromdate'
+                                    id="fromdate"
+                                    label="From "
+                                    type="date"
+                                    value={values.fromdate}
+                                    onChange={handleInputChange}
+                                    sx={{ width: 220 }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+
+                                />
+                            </div>
+                            <div>
+                                <Typography variant="h7" display="inline">
+                                    To : </Typography>
 
 
-                <Grid container direction="row" justifyContent="center" alignContent="center" rowSpacing={12} columnSpacing={2}>
-                    <Grid item xs={2}>
-                        <Typography>From date </Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <BasicDatePicker />  </Grid>
-                    <Grid item xs={2}>
-                        <Typography>End date </Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <BasicDatePicker /> </Grid>
-                </Grid>
+                                <TextField
+                                    name='todate'
+                                    id="todate"
+                                    label="To"
+                                    type="date"
+                                    value={values.todate}
+                                    onChange={handleInputChange}
+                                    sx={{ width: 220 }}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
 
-                <Grid container direction="row" justifyContent="center" alignContent="center" rowSpacing={12} columnSpacing={2}>
-                    <Grid item xs={1}>
-                        <Button type="submit"
-                            variant="contained"
-                            color="inherit"
-                        >Submit</Button>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="inherit"
-                        >Clear</Button>
-                    </Grid>
-                </Grid>
+                                />
+                            </div>
+                        </Grid>
+                        <Grid container direction="row" justifyContent="center" alignContent="right" paddingTop={3} >
 
+                            <Grid item xs={2} spacing={1} justify="flex-end">
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                    onClick={handleSubmit}
+                                >Submit</Button>
+                            </Grid>
+                            <Grid item xs={0} spacing={2}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="reset"
+                                    onClick={() => {
+                                        alert('After submitting data cannot be deleted, would you like to proceed?');
+                                    }}
+                                >Clear</Button>
+
+                            </Grid>
+                        </Grid>
+                    </Card>
+                </form>
             </Box>
-
         </>
     );
 }
-
-
 
